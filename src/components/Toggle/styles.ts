@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import Switch, { ReactSwitchProps} from 'react-switch';
-import React from 'react';
 
 export const Container = styled.div`
     display: flex;

@@ -36,6 +36,6 @@ export const Button = styled.button<IButtonProps>`
         margin: 0 auto;
         width: 55px;
         border-bottom: 10px solid 
-        ${ props => props.textType =='recurrent' ? props.theme.colors.warning : props.theme.colors.success};
+        ${ props => props.textType ==='recurrent' ? props.theme.colors.warning : props.theme.colors.success};
     }
 `;
