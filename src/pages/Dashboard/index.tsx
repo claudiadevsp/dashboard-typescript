@@ -2,6 +2,7 @@ import React from 'react';
 import { Container } from './styles';
 import ContentHeader from '../../components/ContentHeader';
 import SelectInput from '../../components/SelectInput';
+import { Console } from 'console';
 
 const Dashboard: React.FC = () => {
     const month = [
@@ -14,7 +15,7 @@ const Dashboard: React.FC = () => {
     ];
     return (
         <Container>
-            <ContentHeader title="Dashboard"  lineColor="#F7931B">
+            <ContentHeader title="Dashboard"  lineColor="#F7931B" onClick={() => {}}> 
                 <SelectInput options={month} onChange={() =>{}} />
                 <SelectInput options={year} onChange={() =>{}}/>
             </ContentHeader>
