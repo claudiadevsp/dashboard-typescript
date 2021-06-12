@@ -28,18 +28,18 @@ interface IData {
 const List: React.FC<IRouteParams> = ({ match }) => {
 
     const [data, setData] = useState<IData[]>([]);
-    const [monthSelected, setMonthSelected] = useState<string>(String(new Date().getMonth() + 1));
-    const [yearSelected, setYearSelected] = useState<string>(String(new Date().getFullYear()));
+    const [monthSelected, setMonthSelected] = useState<number>(new Date().getMonth() + 1);
+    const [yearSelected, setYearSelected] = useState<number>(new Date().getFullYear());
     const [selectedFrequency, setSelectedFrequency] = useState<string[]>([]);
     const [activedRecurrent, setActivedRecurrent] = useState<boolean>(true);
     const [activedEventual, setActivedEventual] = useState<boolean>(true);    
-    const { type } = match.params;
+    const { type  } = match.params;
 
     const configs = useMemo(() => {
         return type === 'entry-balance' ?
             {
                 title: 'Entradas',
-                lineColor: '#F7931B',
+                lineColor: '#4e41F0',
                 listData: gains
             }
             :
@@ -58,18 +58,16 @@ const List: React.FC<IRouteParams> = ({ match }) => {
             setActivedRecurrent(false);
             setActivedEventual(true);
         }
-
-        const alreadySelected = selectedFrequency.findIndex(item => item === frequency);
-        console.log(alreadySelected);
+        
         setSelectedFrequency([frequency]);
     };
 
-
     useEffect(() => {
-        const filteredData = configs.listData.filter((item) => {
+        const { listData } = configs;
+        const filteredData = listData.filter((item) => {
             const date = new Date(item.date);
-            const month = String((date.getMonth() + 1));
-            const year = String(date.getFullYear());
+            const month = date.getMonth() + 1;
+            const year = date.getFullYear();
             
             if (selectedFrequency.length === 0) {
                 return month === monthSelected && year === yearSelected;
@@ -87,7 +85,7 @@ const List: React.FC<IRouteParams> = ({ match }) => {
             }
         });
         setData(formattedData);
-    }, [configs.listData, monthSelected, yearSelected, selectedFrequency]);
+    }, [configs, monthSelected, yearSelected, selectedFrequency]);
     
 
     const months = useMemo(() => {
@@ -101,7 +99,8 @@ const List: React.FC<IRouteParams> = ({ match }) => {
 
     const years = useMemo(() => {
         let uniqueYears: number[] = [];
-        configs.listData.forEach(item => {
+        const { listData } = configs;
+        listData.forEach(item => {
             const date = new Date(item.date);
             const year = date.getFullYear();
             if (!uniqueYears.includes(year)) {
@@ -114,24 +113,29 @@ const List: React.FC<IRouteParams> = ({ match }) => {
                 label: year
             }
         });
-    }, [configs.listData]);
+    }, [configs]);
     
+    const resetConfigs = () => {
+        setSelectedFrequency([]);
+        setActivedRecurrent(true);
+        setActivedEventual(true);
+    };
 
     return (
         <Container>
             <ContentHeader
                 title={configs.title}
-                onClick={() => setSelectedFrequency([])}
+                onClick={() => resetConfigs()}
                 lineColor={configs.lineColor}
             >
                 <SelectInput
                     options={months}
-                    onChange={(e) => setMonthSelected(e.target.value)}
+                    onChange={(e) => setMonthSelected(Number(e.target.value))}
                     defaultValue={monthSelected}
                 />
                 <SelectInput
                     options={years}
-                    onChange={(e) => setYearSelected(e.target.value)}
+                    onChange={(e) => setYearSelected(Number(e.target.value))}
                     defaultValue={yearSelected}
                 />
             </ContentHeader>
