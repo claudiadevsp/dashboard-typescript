@@ -9,7 +9,9 @@ const gains =  [
   { "description": "Salário",     "amount": "2500.15", "type": "entrada", "frequency": "recorrente", "date": "2020-05-10" }, 
   { "description": "Salário",     "amount": "2500.12", "type": "entrada", "frequency": "recorrente", "date": "2020-07-10" }, 
   { "description": "Salário",     "amount": "2500.00", "type": "entrada", "frequency": "recorrente", "date": "2021-06-10" },
-  { "description": "Salário",     "amount": "2500.00", "type": "entrada", "frequency": "recorrente", "date": "2020-07-10" }]
+  { "description": "Salário",     "amount": "2500.00", "type": "entrada", "frequency": "eventual", "date": "2020-07-10" },
+  { "description": "Salário",     "amount": "2500.00", "type": "entrada", "frequency": "eventual", "date": "2021-06-10" },
+  { "description": "Freela site", "amount": "900.23",  "type": "entrada", "frequency": "eventual",   "date": "2021-06-21" }]
 
 export default gains;
 
