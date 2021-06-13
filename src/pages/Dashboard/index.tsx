@@ -7,6 +7,7 @@ import ContentHeader from '../../components/ContentHeader';
 import SelectInput from '../../components/SelectInput';
 import WalletBox from '../../components/WalletBox';
 import MessageBox from '../../components/MessageBox';
+import HistoryBox from '../../components/HistoryBox';
 import Chart from '../../components/Chart';
 import expenses from '../../repositories/expenses';
 import gains from '../../repositories/gains';
@@ -117,6 +118,59 @@ const Dashboard: React.FC = () => {
         }
 
     }, [totalBalance]);
+
+    const relationExpensesVersusGains = useMemo(() => {
+        const total = totalGains + totalExpenses;
+        const percentGains = (totalGains / total) * 100;
+        const percentExpenses = (totalExpenses / total) * 100;
+        const data = [
+            {
+                name: 'Entradas',
+                value: totalGains,
+                percent: Number(percentGains.toFixed(1)),
+                color: '#F7931B'
+            },
+            {
+                name: 'Saídas',
+                value: totalExpenses,
+                percent: Number(percentExpenses.toFixed(1)),
+                color: '#E44C4E'
+            }
+        ];
+        return data;
+    }, [totalGains, totalExpenses]);
+
+    const historyData = useMemo(() => {
+        return listOfMonths.map((_, month) => {
+            let amountEntry = 0;
+            gains.forEach((gain) => {
+                const date = new Date(gain.date);
+                const gainMonth = date.getMonth();
+                const gainYear = date.getFullYear();
+
+                if (gainMonth === month && gainYear === yearSelected) {
+                    amountEntry += Number(gain.amount);
+                }
+            });
+            let amountOutPut = 0;
+            expenses.forEach((expense) => {
+                const date = new Date(expense.date);
+                const expenseMonth = date.getMonth();
+                const expenseYear = date.getFullYear();
+
+                if (expenseMonth === month && expenseYear === yearSelected) {
+                    amountOutPut += Number(expense.amount);
+                }
+            });
+
+            return {
+                monthNumber: month,
+                month: listOfMonths[month].substr(0,3),
+                amountEntry,
+                amountOutPut
+            }
+        });
+    }, [yearSelected]);
     return (
         <Container>
             <ContentHeader title="Dashboard" lineColor="#F7931B" onClick={() => { }}>
@@ -159,7 +213,12 @@ const Dashboard: React.FC = () => {
                     footerText={message.footerText}
                     icon={message.icon}
                 />
-                <Chart />
+                <Chart data={relationExpensesVersusGains}/>
+                <HistoryBox 
+                    lineColorAmountEntry={"#F7931B"} 
+                    lineColorAmountOutPut={"#E44C4E"}
+                    data={historyData}
+                />
             </Content>
         </Container>
     );

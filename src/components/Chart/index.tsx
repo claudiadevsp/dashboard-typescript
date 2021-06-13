@@ -2,8 +2,8 @@ import React from 'react';
 import {
     PieChart,
     Pie,
-    Cell,
-    ResponsiveContainer
+    ResponsiveContainer,
+    Cell
 }
     from 'recharts';
 import {
@@ -17,31 +17,48 @@ import {
     Title
 } from './styles';
 
-const Chart: React.FC = () => (
+interface IChart {
+    data: {
+        name: string,
+        value: number,
+        percent: number,
+        color: string
+    }[]
+}
+
+const Chart: React.FC<IChart> = ({ data }) => (
     <Container>
         <SideLeft>
             <Title>
                 Relação
             </Title>
             <LegendContainer>
-                <Legend  >
-                    <LegendTotal color="#F7931B">5%</LegendTotal>
-                    <LegendDescription>Entradas</LegendDescription>
-                </Legend>
-                <Legend>
-                    <LegendTotal color="#E44C4E">95%</LegendTotal>
-                    <LegendDescription>Saídas</LegendDescription>
-                </Legend>
+                {data.map((indicator, index) => (
+                    <Legend key={index}>
+                        <LegendTotal color={indicator.color}>
+                            {indicator.percent}%
+                        </LegendTotal>
+                        <LegendDescription>{indicator.name}</LegendDescription>
+                    </Legend>
+                ))}
             </LegendContainer>
         </SideLeft>
         <SideRight>
             <ResponsiveContainer>
                 <PieChart>
                     <Pie
-                        data={[{ amount: 30, percent: 95 }]}
+                        data={data}
                         labelLine={false}
                         dataKey="percent"
                     >
+                        {
+                            data.map((indicator, index) => (
+                             <Cell 
+                                key={index}
+                                fill={indicator.color}
+                             />
+                            ))
+                        }
                     </Pie>
                 </PieChart>
             </ResponsiveContainer>

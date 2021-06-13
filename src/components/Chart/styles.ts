@@ -39,10 +39,10 @@ export const Legend = styled.li`
 `;
 export const LegendTotal = styled.div<ILegendProps>`
     background: ${props => props.color};
-    width: 40px;
+    width: 45px;
     height: 40px;
-    border-radius: 3px;
-    font-size: 18px;
+    border-radius: 4px;
+    font-size: 14px;
     line-height: 40px;
     text-align: center;
 `;
@@ -50,6 +50,9 @@ export const LegendDescription =  styled.span`
     margin-left: 5px;
 `;
 export const SideRight = styled.main`
+    display: flex;
+    flex: 1;
+    justify-content: center;
 `;
 export const Title = styled.h2`
     margin-bottom: 20px;
