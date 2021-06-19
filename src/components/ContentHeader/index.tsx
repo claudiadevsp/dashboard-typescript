@@ -15,18 +15,15 @@ interface IContentHeaderProps {
 
 const ContentHeader: React.FC<IContentHeaderProps> = ({
     title, lineColor, children, onClick
-}) => {
-    
-    return (
-        <Container onClick={onClick}>
-            <TitleContainer lineColor={lineColor}>
-                <h1>{title}</h1>
-            </TitleContainer>
-            <Controllers>
-                {children}
-            </Controllers>
-        </Container>
-    );
-};
+}) => (
+    <Container onClick={onClick}>
+        <TitleContainer lineColor={lineColor}>
+            <h1>{title}</h1>
+        </TitleContainer>
+        <Controllers>
+            {children}
+        </Controllers>
+    </Container>
+);
 
 export default ContentHeader;

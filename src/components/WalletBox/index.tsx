@@ -23,25 +23,22 @@ const WalletBox: React.FC<IWalletBoxProps> = ({
     amount,
     footerLabel,
     icon,
-    color,
-    children
-}) => {
+    color
+}) => (
+    <Container color={color}>
+        <Title>{title}</Title>
+        <Amount>
+            <CountUp
+                end={amount}
+                prefix={"R$ "}
+                separator="."
+                decimal=","
+                decimals={2}
+            />
+        </Amount>
+        <FooterLabel>{footerLabel}</FooterLabel>
+        <ImageIcon src={icon} alt={title} />
+    </Container>
+);
 
-    return (
-        <Container color={color}>
-            <Title>{title}</Title>
-            <Amount>
-               <CountUp
-                 end={amount}
-                 prefix={"R$ "}
-                 separator="."
-                 decimal=","
-                 decimals={2}
-                />
-            </Amount>
-            <FooterLabel>{footerLabel}</FooterLabel>
-            <ImageIcon src={icon} alt={title}/>
-        </Container>
-    )
-}
 export default WalletBox;

@@ -5,16 +5,14 @@ import Aside from '../Aside';
 import Content from '../Content';
 
 
-const Layout: React.FC = ({ children }) => {
-    return (
-        <Container>
-            <MainHeader />
-            <Aside />
-            <Content>
-                { children }
-            </Content>
-        </Container>
-    );
-};
+const Layout: React.FC = ({ children }) => (
+    <Container>
+        <MainHeader />
+        <Aside />
+        <Content>
+            {children}
+        </Content>
+    </Container>
+);
 
 export default Layout;
