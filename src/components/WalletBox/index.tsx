@@ -6,7 +6,8 @@ import {
     Title,
     Amount,
     FooterLabel,
-    ImageIcon
+    ImageIcon,
+    Symbol
 } from './styles';
 
 
@@ -28,9 +29,9 @@ const WalletBox: React.FC<IWalletBoxProps> = ({
     <Container color={color}>
         <Title>{title}</Title>
         <Amount>
+            <Symbol>R$</Symbol>
             <CountUp
                 end={amount}
-                prefix={"R$ "}
                 separator="."
                 decimal=","
                 decimals={2}
